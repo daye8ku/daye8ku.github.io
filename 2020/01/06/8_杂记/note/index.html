@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>杂记 | Daye8ku</title>
+    
+    
+        <meta name="keywords" content="杂记" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="笔记常见默认端口sqlserver：1433 redis：6379 oracle：1521 serv-U：43958 sqlserver 判断当前用户身份  判断是否为sa：select is_srvrolemember(‘sysadmin’); 判断是否为dbowner：select is_member(‘dbowner’); 判断是否为public：select is_srvrolemembe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="杂记">
+<meta property="og:url" content="http://example.com/2020/01/06/8_%E6%9D%82%E8%AE%B0/note/index.html">
+<meta property="og:site_name" content="Daye8ku">
+<meta property="og:description" content="笔记常见默认端口sqlserver：1433 redis：6379 oracle：1521 serv-U：43958 sqlserver 判断当前用户身份  判断是否为sa：select is_srvrolemember(‘sysadmin’); 判断是否为dbowner：select is_member(‘dbowner’); 判断是否为public：select is_srvrolemembe">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/01/06/8_%E6%9D%82%E8%AE%B0/note/Document/network.png">
+<meta property="og:image" content="http://example.com/2020/01/06/8_%E6%9D%82%E8%AE%B0/note/Document/persistence.png">
+<meta property="og:image" content="http://example.com/2020/01/06/8_%E6%9D%82%E8%AE%B0/note/Document/workgroup.png">
+<meta property="og:image" content="http://example.com/2020/01/06/8_%E6%9D%82%E8%AE%B0/note/Document/Localprivilege.png">
+<meta property="og:image" content="http://example.com/2020/01/06/8_%E6%9D%82%E8%AE%B0/note/Document/tunnel.png">
+<meta property="og:image" content="http://example.com/2020/01/06/8_%E6%9D%82%E8%AE%B0/note/Document/Adsec.png">
+<meta property="og:image" content="http://example.com/2020/01/06/8_%E6%9D%82%E8%AE%B0/note/Document/LateralMovement.png">
+<meta property="og:image" content="http://example.com/2020/01/06/8_%E6%9D%82%E8%AE%B0/note/Document/redTeamTactics.png">
+<meta property="article:published_time" content="2020-01-06T13:05:00.000Z">
+<meta property="article:modified_time" content="2020-12-30T15:19:56.347Z">
+<meta property="article:author" content="Daye8ku">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/01/06/8_%E6%9D%82%E8%AE%B0/note/Document/network.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Daye8ku" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Daye8ku</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【1】WEB应用漏洞
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/01/06/1_web%E6%BC%8F%E6%B4%9E/web%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E1/">SQL注入</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【2】中间件漏洞
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/01/06/2_%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E1/">IIS</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【3】操作系统漏洞
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/01/06/3_%E7%B3%BB%E7%BB%9F%E6%BC%8F%E6%B4%9E/%E7%B3%BB%E7%BB%9F%E6%BC%8F%E6%B4%9E1/">Windows</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【4】内网渗透
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/01/06/4_%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网穿透</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【5】红蓝对抗
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/01/06/5_%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%971/">红蓝对抗简介</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【6】加固基线
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/01/06/6_%E5%8A%A0%E5%9B%BA%E5%9F%BA%E7%BA%BF/%E5%8A%A0%E5%9B%BA%E5%9F%BA%E7%BA%BF1/">SQL注入</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【8】Python
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/01/06/7_Python/Python%E7%AC%94%E8%AE%B01/">Python笔记</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            【8】杂记
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file active"><a href="/2020/01/06/8_%E6%9D%82%E8%AE%B0/note/">杂记</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-8_杂记/note" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E3%80%908%E3%80%91%E6%9D%82%E8%AE%B0/">【8】杂记</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2020/01/06/8_%E6%9D%82%E8%AE%B0/note/">
+            <time datetime="2020-01-06T13:05:00.000Z" itemprop="datePublished">2020-01-06</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/raw/writing/source/_posts/8_杂记/note.md'> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/edit/writing/source/_posts/8_杂记/note.md'> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/commits/writing/source/_posts/8_杂记/note.md'> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            杂记
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h1 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h1><h2 id="常见默认端口"><a href="#常见默认端口" class="headerlink" title="常见默认端口"></a>常见默认端口</h2><pre><code>sqlserver：1433
+redis：6379
+oracle：1521
+serv-U：43958</code></pre>
+<h2 id="sqlserver"><a href="#sqlserver" class="headerlink" title="sqlserver"></a>sqlserver</h2><blockquote>
+<p>判断当前用户身份</p>
+<ul>
+<li>判断是否为sa：select is_srvrolemember(‘sysadmin’);</li>
+<li>判断是否为dbowner：select is_member(‘dbowner’);</li>
+<li>判断是否为public：select is_srvrolemember(‘public’);</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>若为sa权限</p>
+<ul>
+<li> select count(*) from master..sysobjects where name=’xp_cmdshell’ and xtype=’X’;</li>
+<li>开启xp_cmdshell</li>
+<li>exec sp_configure ‘show advanced options’,1;</li>
+<li>exec reconfigure;</li>
+<li>exec sp_configure ‘xp_cmdshell’,1;</li>
+<li>exec reconfigure;</li>
+<li>exec xp_cmdshell ‘whoami’;</li>
+<li>declare @shell int exec sp_oacreate ‘wscript.shell’,@shell output exec sp_oamethod @shell,’run’,null,’whoami’; //判断是否开启sp_oacreate</li>
+</ul>
+</blockquote>
+<h2 id="应急响应Windows篇"><a href="#应急响应Windows篇" class="headerlink" title="应急响应Windows篇"></a>应急响应Windows篇</h2><blockquote>
+<p>日志和记录</p>
+<ul>
+<li>开始→设置→控制面板→管理工具→事件查看器（eventvwr.msc）</li>
+<li>Windows日志文件默认位置是%systemroot%\system32\config</li>
+<li>安全日志文件：%systemroot%\system32\config\SecEvent.EVT</li>
+<li>系统日志文件：%systemroot%\system32\config\SysEvent.EVT</li>
+<li>应用程序日志文件：%systemroot%\system32\config\AppEvent.EVT</li>
+<li>FTP连接日志和HTTPD事务日志：%systemroot%\system32\LogFiles\</li>
+<li>IIS日志默认存放在System32\LogFiles目录下，使用W3C扩展格式</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>进程和端口</p>
+<ul>
+<li>netstat -ano</li>
+<li>进程对应的服务：tasklist /svc</li>
+<li>获取Windows上所有启动项的名称与执行程序所在路径：wmic startup get caption,command</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>用户和用户组</p>
+</blockquote>
+<blockquote>
+<p>资源占用</p>
+</blockquote>
+<blockquote>
+<p>计划任务</p>
+<ul>
+<li>管理-&gt;任务计划程序-&gt;任务计划程序库（taskschd.msc）</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>木马，shell，文件，后门</p>
+<ul>
+<li>D盾: <a target="_blank" rel="noopener" href="http://www.d99net.net/down/WebShellKill_V2.0.9.zip">http://www.d99net.net/down/WebShellKill_V2.0.9.zip</a></li>
+<li>找到web服务器目录，对其进行木马文件查找</li>
+<li>mysql\lib\plugin目录是否存在异常文件，</li>
+<li>select * from mysql.func是否存在函数，可能是udf提权。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>启动项</p>
+</blockquote>
+<h2 id="应急响应之Linux篇"><a href="#应急响应之Linux篇" class="headerlink" title="应急响应之Linux篇"></a>应急响应之Linux篇</h2><blockquote>
+<p>日志和记录</p>
+<ul>
+<li>histroy bash</li>
+<li>/var/log/wtmp：记录每个用户的登录次数和持续的时间等信息</li>
+<li>/var/log/utmp：有关当前用户登陆的信息</li>
+<li>lastlog： 最后一次登陆信息</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>进程和端口</p>
+<ul>
+<li>netstat -anlpte</li>
+<li>lsof(list open files)</li>
+<li>lsof -i :[port]: 查看什么文件占用的该端口</li>
+<li>lsof -p [pid]: 查看什么文件占用的该pid</li>
+<li>ps -aux </li>
+<li>ps -ef</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>用户和组</p>
+<ul>
+<li>/etc/passwd</li>
+<li>/etc/shadow</li>
+<li>/etc/group</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>资源占用</p>
+<ul>
+<li>top<br>计划任务</li>
+<li>crontab -l: 查看当前用户的定时计划任务</li>
+<li>crontab -r: 删除计划任务</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>webshell,木马,文件</p>
+<ul>
+<li>河马: <a target="_blank" rel="noopener" href="https://www.shellpub.com/">https://www.shellpub.com/</a></li>
+<li>在线: WEBDIR+ - <a target="_blank" rel="noopener" href="https://scanner.baidu.com/#/pages/intro">https://scanner.baidu.com/#/pages/intro</a></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>rootkit</p>
+<ul>
+<li>chkootkit检测: <a target="_blank" rel="noopener" href="http://www.chkrootkit.org/">http://www.chkrootkit.org/</a></li>
+<li>rkhunter检测: rkhunter.sourceforge.net</li>
+<li>clamav: <a target="_blank" rel="noopener" href="http://www.clamav.net/download.html">http://www.clamav.net/download.html</a></li>
+<li>Gscan: <a target="_blank" rel="noopener" href="https://github.com/grayddq/GScan">https://github.com/grayddq/GScan</a></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>备忘录-Linux各种日志的作用</p>
+</blockquote>
+<h2 id="Linux安全加固"><a href="#Linux安全加固" class="headerlink" title="Linux安全加固"></a>Linux安全加固</h2><blockquote>
+<p>账号与口令</p>
+<ul>
+<li>禁用或锁定无用账号</li>
+<li>检查特殊账号</li>
+<li>添加口令策略</li>
+<li>限制sudoers</li>
+<li>禁止root用户直接登录<br>服务</li>
+<li>关闭不必要的服务</li>
+<li>SSH服务安全<br>文件系统</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>日志</p>
+</blockquote>
+<blockquote>
+<p>IP协议安全要求</p>
+</blockquote>
+<blockquote>
+<p>Linux验证失败次数超阈值锁定</p>
+</blockquote>
+<h2 id="Windows安全加固"><a href="#Windows安全加固" class="headerlink" title="Windows安全加固"></a>Windows安全加固</h2><blockquote>
+<p>账户管理与认证授权</p>
+</blockquote>
+<blockquote>
+<p>日志配置</p>
+</blockquote>
+<h2 id="域"><a href="#域" class="headerlink" title="域"></a>域</h2><blockquote>
+<p>域信息查看</p>
+<ul>
+<li>查询域控制器主机名：net group “domain controllers” /domain</li>
+<li>查询域管理用户：net group “domain admins” /domain</li>
+<li>查询域内所有机器名：net group “Domain computers”</li>
+<li>查询域时间：net time /domain</li>
+<li>查看当前登录域：set l    (其中logonserver的值即为当前登录域)</li>
+<li>查看所有域用户： net user /domain</li>
+<li>查询当前登陆域：net config workstation</li>
+<li>查询域密码策略：net accounts /domain</li>
+<li>查看补丁信息：wmic qfe或者systeminfo</li>
+<li>查看操作系统类型：wmic os</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>命令行信息查看:</p>
+<ul>
+<li>进程列表: tasklist /v</li>
+<li>whoami /priv</li>
+<li>whoami /user</li>
+<li>systeminfo</li>
+<li>netstat -ano</li>
+<li>arp -a</li>
+<li>hostname</li>
+<li>ipconfig /all</li>
+<li>tasklist /v</li>
+<li>查看防护软件： wmic /Node:localhost /Namespace:\root\SecurityCenter2 Path AntiVirusProduct Get DisplayName /Format:List </li>
+<li>查看安装的软件：wmic product get name, version</li>
+<li>查看在线用户： quser</li>
+<li>route print</li>
+<li>wmic cpu</li>
+<li>wmic memorychip</li>
+<li>查看计划任务：schtasks /query</li>
+<li>日志查看器：eventvwr.msc</li>
+</ul>
+</blockquote>
+<h2 id="Mysql相关的SQL注入，5-0以上和5-0以下有什么区别"><a href="#Mysql相关的SQL注入，5-0以上和5-0以下有什么区别" class="headerlink" title="Mysql相关的SQL注入，5.0以上和5.0以下有什么区别"></a>Mysql相关的SQL注入，5.0以上和5.0以下有什么区别</h2><blockquote>
+<ul>
+<li> 5.0以下没有information_schema这个系统表，无法列表名等，只能暴力跑表名。</li>
+<li> 5.0以下是多用户单操作，5.0以上是多用户多操做。</li>
+</ul>
+</blockquote>
+<h2 id="已知哪些版本的容器有解析漏洞"><a href="#已知哪些版本的容器有解析漏洞" class="headerlink" title="已知哪些版本的容器有解析漏洞"></a>已知哪些版本的容器有解析漏洞</h2><blockquote>
+<ul>
+<li>IIS 6.0：/xx.asp/xx.jpg “xx.asp”是文件夹名</li>
+<li>IIS 7.0/7.5：默认Fast-CGI开启，直接在url中图片地址后面输入/1.php，会把正常图片当成php解析</li>
+<li>Nginx: 版本小于等于0.8.37，利用方法和IIS 7.0/7.5一样，Fast-CGI关闭情况下也可利用。</li>
+<li>Nginx：空字节代码 xxx.jpg%00.php</li>
+<li>Apache：上传的文件命名为：test.php.x1.x2.x3，Apache是从右往左判断后缀</li>
+<li>Apache：</li>
+</ul>
+</blockquote>
+<h2 id="sqlmap使用"><a href="#sqlmap使用" class="headerlink" title="sqlmap使用"></a>sqlmap使用</h2><blockquote>
+<ul>
+<li>如果是get型号，直接，sqlmap -u “诸如点网址”.</li>
+<li>如果是post型诸如点，可以sqlmap -u “注入点网址” –data=”post的参数”</li>
+<li>如果是cookie，X-Forwarded-For等，可以访问的时候，用burpsuite抓包，注入处用*号替换，放到文件里，然后sqlmap -r “文件地址”</li>
+</ul>
+</blockquote>
+<h2 id="owasp-top-10"><a href="#owasp-top-10" class="headerlink" title="owasp top 10"></a>owasp top 10</h2><blockquote>
+<ul>
+<li>SQL注入防护方法：</li>
+<li>失效的身份认证和会话管理</li>
+<li>跨站脚本攻击XSS</li>
+<li>直接引用不安全的对象</li>
+<li>安全配置错误</li>
+<li>敏感信息泄露</li>
+<li>缺少功能级的访问控制</li>
+<li>跨站请求伪造CSRF</li>
+<li>使用含有已知漏洞的组件</li>
+<li>未验证的重定向和转发</li>
+</ul>
+</blockquote>
+<h2 id="代码执行，文件读取，命令执行的函数"><a href="#代码执行，文件读取，命令执行的函数" class="headerlink" title="代码执行，文件读取，命令执行的函数"></a>代码执行，文件读取，命令执行的函数</h2><blockquote>
+<ul>
+<li>代码执行：eval、preg_replace+/e、assert、call_user_func、call_user_func_array、create_function</li>
+<li>文件读取：file_get_contents()、highlight_file()、fopen()、read file()、fread()、fgetss()、fgets()、parse_ini_file()、show_source()、file()</li>
+<li>命令执行：system()、exec()、shell_exec()、passthru()、pcntl_exec(), popen()、proc_open()</li>
+</ul>
+</blockquote>
+<h2 id="步骤与流程："><a href="#步骤与流程：" class="headerlink" title="步骤与流程："></a>步骤与流程：</h2><p>在获取书面授权的前提下。</p>
+<blockquote>
+<p>信息收集，</p>
+<ul>
+<li>获取域名的whois信息,获取注册者邮箱姓名电话等。</li>
+<li>查询服务器旁站以及子域名站点，因为主站一般比较难，所以先看看旁站有没有通用性的cms或者其他漏洞。</li>
+<li>查看服务器操作系统版本，web中间件，看看是否存在已知的漏洞，比如IIS，APACHE,NGINX的解析漏洞</li>
+<li>查看IP，进行IP地址端口扫描，对响应的端口进行漏洞探测，比如 rsync,心脏出血，mysql,ftp,ssh弱口令等。</li>
+<li>扫描网站目录结构，看看是否可以遍历目录，或者敏感文件泄漏，比如php探针</li>
+<li>google hack 进一步探测网站的信息，后台，敏感文件</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>漏洞扫描</p>
+<ul>
+<li>开始检测漏洞，如XSS,XSRF,sql注入，代码执行，命令执行，越权访问，目录读取，任意文件读取，下载，文件包含，远程命令执行，弱口令，上传，编辑器漏洞，暴力破解等</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>漏洞利用</p>
+<ul>
+<li>利用以上的方式拿到webshell，或者其他权限</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>权限提升</p>
+<ul>
+<li>提权服务器，比如windows下mysql的udf提权，serv-u提权，windows低版本的漏洞，如iis6,pr,巴西烤肉，linux藏牛漏洞，linux内核版本漏洞提权，linux下的mysql system提权以及oracle低权限提权</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>日志清理</p>
+</blockquote>
+<blockquote>
+<p>总结报告及修复方案</p>
+</blockquote>
+<blockquote>
+<p>internel network pentest：</p>
+<ul>
+<li><img src="./Document/network.png" alt="入口"></li>
+<li><img src="./Document/persistence.png" alt="单机"></li>
+<li><img src="./Document/workgroup.png" alt="工作组"></li>
+<li><img src="./Document/Localprivilege.png" alt="本提"></li>
+<li><img src="./Document/tunnel.png" alt="通道"></li>
+<li><img src="./Document/Adsec.png" alt="单域"></li>
+<li><img src="./Document/LateralMovement.png" alt="横移"></li>
+<li><img src="./Document/redTeamTactics.png" alt="红蓝"></li>
+</ul>
+</blockquote>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/2020/01/06/7_Python/Python%E7%AC%94%E8%AE%B01/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Python笔记
+                
+            </div>
+        </a>
+    
+    
+</nav>
+
+
+
+
+
+    
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            Daye8ku &copy; 2020 
+            <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a target="_blank" rel="noopener" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>
